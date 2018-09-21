@@ -8,7 +8,7 @@ The neck mechanism is a 3-UPU (3-universal-prismatic-universal) parallel manipul
 
 
 ## medel simplification
-To carry out optimization, some simplifications are necessary.
+To carry out optimization, some simplifications are necessary. The actual mechanism is too complex to optimise because of too many unnecessary details and the goal of simplification is to focus on the most significant features of the mechanism.
 
 
 # Main Function Instruction
