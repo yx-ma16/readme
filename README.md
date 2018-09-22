@@ -11,11 +11,11 @@ The neck mechanism is a 3-UPU (3-universal-prismatic-universal) parallel manipul
 ## model simplification
 To carry out optimization, some simplifications are necessary. The actual mechanism is too complex to optimise because there are too many unnecessary factors. So the goal of simplification is to focus on the most significant features of the mechanism. The following is how the simplification goes.
 
-1. The most important features of the mechanism are the 6 U-joints and the Spherical joint on the support pole. Considering that the size of these joints are not important during optimization, we can use 7 points to represent these 7 joints. Based on that, the three points on the base will form a triangle, which can be found as the actual base, and the same to the platform. 
+1. The most important features of the mechanism are the 6 U-joints and the Spherical joint on the support pole. Considering that the size of these joints are not important during optimization, we can use 7 points to represent these 7 joints. Based on that, the three points on the base will form a triangle, which can be found as the actual base, and the same to the platform. Then the prismatic joints are the lines between two U-joint points on the base and the platform. The picture of the actual model and abstact model are shown. 
 
-2. 
+2. For the present mechanism, the point of the spherical joint is not exactly on the plane of the platform, but they are very close. According to the result of simulation in Simulink, the distance between that point and the platform plane has little influence on the performace of the mechcanism when this distance is small. So we can assume the distance is zero so that one parameter of optimization can be reduced.
 
-3. 
+3. When the actual mechanism moves around, some attitudes are impossible to achieve because of the constraints of actuator and collision. So the workspace of the mechanism is limited and during the optimization, we can compute the possible workspace under these constraints. First, the actuator (prismatic joint) has a limited stroke distance, so the length of the actuators must always stay in its working range. With the coordinates of the joint points, we can calculate the distance of the actuators easily, so this constaint is not difficult to consider. Second, if the support pole and ang of the three legs are too close, they will crash into each other, so the collision is another constraint. This constraint is not 
 
 # Main Function Instruction
 
