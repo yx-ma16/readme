@@ -20,8 +20,22 @@ To carry out optimization, some simplifications are necessary. The actual mechan
 # Main Function Instruction
 This part introduces how to use the optimization function (neck_optimise), including variable defination, result explanation and some notices. This function has a lot limitations, if you want to edit the code, the next part (Code details) as well as the comments in the function will help you understand the code.
 
-##
+## Variable Defination
+The optimization function is defined by "function \[l0, theta0, angles, jangles] = optimise(r,R,H,delta)"
 
+Input
+name     data categary
+  r        1\*1 double      the circumradius of the triangle on the platform
+  R        1\*1 double      the circumradius of the triangle on the base
+  H        1\*1 double      the hight of the support pole
+delta      1\*1 double      the critical value of collision
+Output
+ l0        1\*1 double      the natural length of the acuator while the
+ mechanism is at its natural position (yaw, pitch, roll are 0,0,0).
+theta0    1\*1 double      
+angles    2\*3 double      the rotation range of roll,pitch,yaw in order
+anguvel   2\*3 double      the max speed of roll,pitch,yaw in order
+jangles   1\*1 double      the angle of the U-joint required by the workspace
 
 # Code details
 
