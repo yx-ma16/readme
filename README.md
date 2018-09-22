@@ -1,6 +1,6 @@
 readme
 ======
-This readme file details how to use the optimise function and also goes through the idea of the code.The instrution goes into three parts, including background information, main funciton instruction and code details. To use the optimise function, you just need to read the first two parts of this file. If you want to change the code to achieve a better optimization or implement other functionality, the last part will be helpful to edit the code.
+This readme file details how to use the optimization function for the neck mechanism and also goes through the idea of the code.The instrution goes into three parts, including background information, main funciton instruction and code details. To use the optimise function, you just need to read the first two parts of this file. If you want to change the code to achieve a better optimization or implement other functionality, the last part will be helpful to edit the code.
 
 # Background Information
 The background information includes model explanation and model simplification. The part of model explanation introduces the actual neck mechanism, while the part of model simplification abstracts the actual mechanism into a geometric model. This simplification facilitates the  process of optimization.
@@ -15,11 +15,12 @@ To carry out optimization, some simplifications are necessary. The actual mechan
 
 2. For the present mechanism, the point of the spherical joint is not exactly on the plane of the platform, but they are very close. According to the result of simulation in Simulink, the distance between that point and the platform plane has little influence on the performace of the mechcanism when this distance is small. So we can assume the distance is zero so that one parameter of optimization can be reduced.
 
-3. When the actual mechanism moves around, some attitudes are impossible to achieve because of the constraints of actuator and collision. So the workspace of the mechanism is limited and during the optimization, we can compute the possible workspace under these constraints. First, the actuator (prismatic joint) has a limited stroke distance, so the length of the actuators must always stay in its working range. With the coordinates of the joint points, we can calculate the distance of the actuators easily, so this constaint is not difficult to consider. Second, if the support pole and ang of the three legs are too close, they will crash into each other, so the collision is another constraint. This constraint is not 
+3. When the actual mechanism moves around, some attitudes are impossible to achieve because of the constraints of actuator and collision. So the workspace of the mechanism is limited and during the optimization, we can compute the possible workspace under these constraints. First, the actuator (prismatic joint) has a limited stroke distance, so the length of the actuators must always stay in its working range. With the coordinates of the joint points, we can calculate the distance of the actuators easily, so this constaint is not difficult to consider. Second, if the support pole and ang of the three legs are too close, they will crash into each other, so the collision is another constraint. The detection of collision is complex since the shape of the leg is not very regular. But we can still set a critical distance (this parameter is *delta*) for collision detection. If the distances between each leg and the support pole is longer than *delta*, it is safe; if not, we claim the collision happens. As the simulation in Simulink shows, this is a valid method to detect collision.
 
 # Main Function Instruction
+This part introduces how to use the optimization function (neck_optimise), including variable defination, result explanation and some notices. This function has a lot limitations, if you want to edit the code, the next part (Code details) as well as the comments in the function will help you understand the code.
 
-
+##
 
 
 # Code details
