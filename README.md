@@ -45,18 +45,20 @@ The optimization goels include required angle ranges (workspace goel) and requir
 
 Related defination satements:</br>
 
-angles_req=\[roll+,pitch+,yaw+;roll-,pich-,yaw-]; &emsp; defines required angle ranges of roll, pitch and yaw when the other two angles are 0.</br>
-anguvel_req=\[roll_speed,pitch_speed,yaw_speed];  defines required angular velocities</br>
+angles_req=\[roll+,pitch+,yaw+;roll-,pich-,yaw-]; &emsp;&emsp; defines required angle ranges of roll, pitch and yaw when the other two angles are 0.</br>
+anguvel_req=\[roll_speed,pitch_speed,yaw_speed]; &emsp; defines required angular velocities</br>
 
-Given the size of the mechanism (*r*,*R*,*H*), the optimizaition function is to find a best natural place (*theta0*,*l0*) to approach these goels.<\br>
+Given the size of the mechanism (*r*,*R*,*H*), the optimizaition function will find the best natural place (*theta0*,*l0*) and the best minimum actuator lenth to make the mechanism get as close as possible to these goels.<\br>
 
 #### Optimal constraint
-As mentioned in the previous section, there are two constraints that we need to consider, the stroke length of the actuator and mechanical collision.<\br>
+As mentioned in the previous section, there are two constraints that we need to consider, the stroke length of the actuator and mechanical collision.<\br> 
 
 #### Method
-The optimization process is change the minimum length of the actuator to change the configuration of the mechanism. As to each configuration, look for the best natural place and  find the best parameter
-In the function, I defined an optimal function (*Target_func*) to evaluate the workspace of different configurations.
-
+The optimization process is change the minimum actuator length to change the configuration of the mechanism. As to each configuration, find the best natural place (*theta0_n,l0_n*) and work out performance parameters (*angles_n,vm,jangles*).
+For each configuration, I defined an optimal function (*target_func*) to evaluate how close the workspace size of different configurations is to the optimal goel (*angles_req*).</br>
+To define *target_func*, we first need to define the difference (*d_angles*) btween *angles_n* and *angles_req*: </br>
+$d_angles=\left|\angles_req\right|-\left|\angles_n\right|$ </br>
+If the ranges of roll, pitch and yaw corresponding to *angles* are in the ranges corresponding to *angles_req*
 ### Notices
 
 ## Code details
