@@ -25,11 +25,11 @@ This part introduces how to use the optimization function (neck_optimise), inclu
 The optimization function is defined by "function \[l0, theta0, angles, jangles] = optimise(r,R,H,delta)"
 
 Input:</br>
-name &emsp; data categary                     explaination </br>
+name &emsp; data categary  &emsp;&emsp;&emsp; explaination </br>
 &emsp;r&ensp;&emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the platform</br>
 &emsp;R &emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the base</br>
 &emsp;H &emsp;&emsp; 1\*1 double &emsp; the hight of the support pole</br>
-delta &emsp; 1\*1 double &emsp; the critical value of collision</br>
+&ensp;delta &emsp; 1\*1 double &emsp; the critical value of collision</br>
 Output:</br>
 &emsp;l0 &emsp;&emsp; 1\*1 double &emsp; the natural length of the acuator </br>
                            "natural" means the mechanism is at its natural position (pitch, roll are both 0 and yaw is theta0)</br>
