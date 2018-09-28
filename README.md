@@ -23,7 +23,7 @@ To carry out optimization, some simplifications are necessary. The actual mechan
 This part introduces how to use the optimization function (neck_optimise), including variable defination, optimization method and some notices. This function has a lot limitations, if you want to edit the code, the next part (Code details) as well as the comments in the function will help you understand the code.</br>
 
 ### Variable Defination
-The optimization function is defined by "function \[l0, theta0, angles, jangles] = optimise(r,R,H,delta)"
+The optimization function is defined by "function \[l0, theta0, angles, jangles] = optimise(r,R,H,delta)".</br>
 
 Input:</br>
 name &emsp; data categary  &emsp;&emsp;&emsp;&emsp; explaination </br>
@@ -45,8 +45,8 @@ The optimization goels include required angle ranges (workspace goel) and requir
 
 Related defination satements:</br>
 
-angles_req=\[roll+,pitch+,yaw+;roll-,pich-,yaw-]; &emsp;&emsp;&emsp; defines required angle ranges of roll, pitch and yaw when the other two angles are 0.</br>
-anguvel_req=\[roll_speed,pitch_speed,yaw_speed]; &emsp;&emsp;  defines required angular velocities</br>
+angles_req=\[roll+,pitch+,yaw+;roll-,pich-,yaw-]; &emsp; defines required angle ranges of roll, pitch and yaw when the other two angles are 0.</br>
+anguvel_req=\[roll_speed,pitch_speed,yaw_speed];  defines required angular velocities</br>
 
 Given the size of the mechanism (*r*,*R*,*H*), the optimizaition function is to find a best natural place (*theta0*,*l0*) to approach these goels.<\br>
 
