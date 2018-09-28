@@ -4,6 +4,7 @@ This readme file details how to use the optimization function for the neck mecha
 
 ## Background Information
 The background information includes model explanation and model simplification. The part of model explanation introduces the actual neck mechanism, while the part of model simplification abstracts the actual mechanism into a geometric model. This simplification facilitates the  process of optimization.</br>
+
 ### model explanation
 The neck mechanism is a 3-UPU (3-universal-prismatic-universal) parallel manipulator with a passive constraining spherical joint, which consists of a base, a platform, a support pole and three legs. The base is fixed and the platform carries the head of the robot. The support pole and three legs connect the platform to the base. The spherical joint on the support pole guarantees the spherical trajectory of the platform. The prismatic joints in the legs serve as actuator of the whole mechanism.</br>
 
@@ -34,16 +35,17 @@ Output:</br>
 &emsp;l0 &emsp;&emsp; 1\*1 double &emsp; the natural length of the acuator </br>
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"natural" means the mechanism is at its natural position (pitch, roll are both 0 and yaw is theta0)</br>
 theta0 &emsp; 1\*1 double &emsp; the natural angle of yaw </br>
-angles &emsp; 2\*3 double &emsp; the rotation range of roll,pitch,yaw (the rotation order is roll,pitch,yaw)</br>
+angles &emsp; 2\*3 double &emsp; the rotation range of roll,pitch,yaw when the other two angles are both 0 (the rotation order is roll,pitch,yaw)</br>
 anguvel &emsp;2\*3 double &emsp; the max angular speed of roll,pitch,yaw</br>
 jangles &emsp;1\*1 double &emsp; the angle range of the U-joint required by the workspace</br>
 
 ### Optimal Method
 #### Optimal goel
-The optimization goels include required angle ranges and required angular velocities of roll, pitch and yaw.
+The optimization goels include required angle ranges (workspace goel) and required angular velocities of roll, pitch and yaw (speed goel). The workspace of the mechnism means the size of space the mechanism can achieve. Indeed, if we regard (roll, pitch, yaw) as coordinates for different positions of the mechanism, we can work out the critical surface. (Each point on the surface represents a critical position, in which the mechanism just breaks one of the constraints.). However, the surface is irregular and it is hard to evaluate the workspace with this surface. So I use the maximum angles of roll, pitch and yaw that the mechanism can achieve when the other two angles are 0 (the parameter *angles*) to represent the size of workspace.
+
 Related defination satements:</br>
 
-angles_req=\[roll+,pitch+,yaw+;roll-,pich-,yaw-]; &emsp;       defines required angle ranges</br>
+angles_req=\[roll+,pitch+,yaw+;roll-,pich-,yaw-]; &emsp;&emsp;&emsp; defines required angle ranges of roll, pitch and yaw when the other two angles are 0.</br>
 anguvel_req=\[roll_speed,pitch_speed,yaw_speed]; &emsp;&emsp;  defines required angular velocities</br>
 
 Given the size of the mechanism (*r*,*R*,*H*), the optimizaition function is to find a best natural place (*theta0*,*l0*) to approach these goels.<\br>
