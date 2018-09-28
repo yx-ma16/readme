@@ -24,19 +24,19 @@ This part introduces how to use the optimization function (neck_optimise), inclu
 ### Variable Defination
 The optimization function is defined by "function \[l0, theta0, angles, jangles] = optimise(r,R,H,delta)"
 
-Input:
-name     data categary                     explaination 
-  r        1\*1 double     the circumradius of the triangle on the platform
-  R        1\*1 double     the circumradius of the triangle on the base
-  H        1\*1 double     the hight of the support pole
-delta      1\*1 double     the critical value of collision
-Output:
- l0        1\*1 double     the natural length of the acuator 
-                           "natural" means the mechanism is at its natural position (pitch, roll are both 0 and yaw is theta0)
-theta0     1\*1 double     the natural angle of yaw 
-angles     2\*3 double     the rotation range of roll,pitch,yaw (the rotation order is roll,pitch,yaw)
-anguvel    2\*3 double     the max angular speed of roll,pitch,yaw
-jangles    1\*1 double     the angle range of the U-joint required by the workspace
+Input:</br>
+name &emsp data categary                     explaination </br>
+  r        1\*1 double     the circumradius of the triangle on the platform</br>
+  R        1\*1 double     the circumradius of the triangle on the base</br>
+  H        1\*1 double     the hight of the support pole</br>
+delta      1\*1 double     the critical value of collision</br>
+Output:</br>
+ l0        1\*1 double     the natural length of the acuator </br>
+                           "natural" means the mechanism is at its natural position (pitch, roll are both 0 and yaw is theta0)</br>
+theta0     1\*1 double     the natural angle of yaw </br>
+angles     2\*3 double     the rotation range of roll,pitch,yaw (the rotation order is roll,pitch,yaw)</br>
+anguvel    2\*3 double     the max angular speed of roll,pitch,yaw</br>
+jangles    1\*1 double     the angle range of the U-joint required by the workspace</br>
 
 ### Notices
 
