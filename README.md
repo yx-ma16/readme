@@ -14,31 +14,45 @@ To carry out optimization, some simplifications are necessary. The actual mechan
 
 2. For the present mechanism, the point of the spherical joint is not exactly on the plane of the platform, but they are very close. According to the result of simulation in Simulink, the distance between that point and the platform plane has little influence on the performace of the mechcanism when this distance is small. So we can assume the distance is zero so that one parameter of optimization can be reduced.
 
-3. When the actual mechanism moves around, some attitudes are impossible to achieve because of the constraints of actuator and collision. So the workspace of the mechanism is limited and during the optimization, we can compute the possible workspace under these constraints. First, the actuator (prismatic joint) has a limited stroke distance, so the length of the actuators must always stay in its working range. With the coordinates of the joint points, we can calculate the distance of the actuators easily, so this constaint is not difficult to consider. Second, if the support pole and ang of the three legs are too close, they will crash into each other, so the collision is another constraint. The detection of collision is complex since the shape of the leg is not very regular. But we can still set a critical distance (this parameter is *delta*) for collision detection. If the distances between each leg and the support pole is longer than *delta*, it is safe; if not, we claim the collision happens. As the simulation in Simulink shows, this is a valid method to detect collision.
+3. When the actual mechanism moves around, some attitudes are impossible to achieve because of the constraints of actuator and collision. So the workspace of the mechanism is limited and during the optimization, we can compute the possible workspace under these constraints. First, the actuator (prismatic joint) has a limited stroke length, so the length of the actuators must always stay in its working range. With the coordinates of the joint points, we can calculate the distance of the actuators easily, so this constaint is not difficult to consider. Second, if the support pole and ang of the three legs are too close, they will crash into each other, so the collision is another constraint. The detection of collision is complex since the shape of the leg is not very regular. But we can still set a critical distance (this parameter is *delta*) for collision detection. If the distances between each leg and the support pole is longer than *delta*, it is safe; if not, we claim the collision happens. As the simulation in Simulink shows, this is a valid method to detect collision.
 
-4. For the atual mechanism, the rotation range of U-joint is also limited so this is another constraint.(deviation angle must be lower than *alfa0*). But we can change the rotation range by change
+4. For the atual mechanism, the rotation range of U-joint is also limited so this is another constraint.(deviation angle must be lower than *alfa0*). But we can change the rotation range by change U-joints. So in the optimization function, instead of regarding the rotation range another constraint, the U-joint rotation range is calculated as an output.
 
 ## Main Function Instruction
-This part introduces how to use the optimization function (neck_optimise), including variable defination and some notices. This function has a lot limitations, if you want to edit the code, the next part (Code details) as well as the comments in the function will help you understand the code.
+This part introduces how to use the optimization function (neck_optimise), including variable defination, optimization method and some notices. This function has a lot limitations, if you want to edit the code, the next part (Code details) as well as the comments in the function will help you understand the code.
 
 ### Variable Defination
 The optimization function is defined by "function \[l0, theta0, angles, jangles] = optimise(r,R,H,delta)"
 
 Input:</br>
-name &emsp; data categary  &emsp;&emsp;&emsp; explaination </br>
+name &emsp; data categary  &emsp;&emsp;&emsp;&emsp; explaination </br>
 &emsp;r&ensp;&emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the platform</br>
 &emsp;R &emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the base</br>
 &emsp;H &emsp;&emsp; 1\*1 double &emsp; the hight of the support pole</br>
 &ensp;delta &emsp; 1\*1 double &emsp; the critical value of collision</br>
 Output:</br>
 &emsp;l0 &emsp;&emsp; 1\*1 double &emsp; the natural length of the acuator </br>
-                           "natural" means the mechanism is at its natural position (pitch, roll are both 0 and yaw is theta0)</br>
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"natural" means the mechanism is at its natural position (pitch, roll are both 0 and yaw is theta0)</br>
 theta0 &emsp; 1\*1 double &emsp; the natural angle of yaw </br>
 angles &emsp; 2\*3 double &emsp; the rotation range of roll,pitch,yaw (the rotation order is roll,pitch,yaw)</br>
 anguvel &emsp;2\*3 double &emsp; the max angular speed of roll,pitch,yaw</br>
 jangles &emsp;1\*1 double &emsp; the angle range of the U-joint required by the workspace</br>
 
-### Notices
+### Optimization Method
+#### Optimization goel
+The optimization goels include required angle ranges and required angular velocities of roll, pitch and yaw.
+Related defination satements:</br>
+
+angles_req=\[roll+,pitch+,yaw+;roll-,pich-,yaw-]; &emsp;       defines required angle ranges<\br>
+anguvel_req=\[roll_speed,pitch_speed,yaw_speed]; &emsp;&ensp;  defines required angular velocities<\br>
+
+Given the size of the mechanism (*r*,*R*,*H*), the optimizaition function is to find a best natural place (*theta0*,*l0*) to approach these goels.<\br>
+#### Optimization constraint
+As mentioned in the previous section, there are two constraints that we need to consider, the stroke length of the actuator and mechanical collision.
+
+#### Method
+The optimization process is change the minimum length of the actuator to change the configuration of the mechanism. As to each configuration, look for the best natural place and  find the best parameter
+In the function, I defined an optimal function (*Target_func*) to evaluate the workspace of different configurations.
 
 ### Notices
 
