@@ -26,16 +26,16 @@ The optimization function is defined by "function \[l0, theta0, angles, jangles]
 
 Input:</br>
 name &emsp; data categary                     explaination </br>
-  r &emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the platform</br>
-  R &emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the base</br>
-  H &emsp;&emsp; 1\*1 double &emsp; the hight of the support pole</br>
+&ensp;r&ensp;&emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the platform</br>
+&ensp;R &emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the base</br>
+&ensp;H &emsp;&emsp; 1\*1 double &emsp; the hight of the support pole</br>
 delta &emsp; 1\*1 double &emsp; the critical value of collision</br>
 Output:</br>
- l0 &emsp;&emsp; 1\*1 double &emsp; the natural length of the acuator </br>
+&ensp;l0 &emsp;&emsp; 1\*1 double &emsp; the natural length of the acuator </br>
                            "natural" means the mechanism is at its natural position (pitch, roll are both 0 and yaw is theta0)</br>
 theta0 &emsp; 1\*1 double &emsp; the natural angle of yaw </br>
 angles &emsp; 2\*3 double &emsp; the rotation range of roll,pitch,yaw (the rotation order is roll,pitch,yaw)</br>
-anguvel &emsp;2\*3 double &emsp; the max angular speed of roll,pitch,yaw</br>
+anguvel &ensp; 2\*3 double &emsp; the max angular speed of roll,pitch,yaw</br>
 jangles &emsp;1\*1 double &emsp; the angle range of the U-joint required by the workspace</br>
 
 ### Notices
