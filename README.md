@@ -25,7 +25,7 @@ This part introduces how to use the optimization function (neck_optimise), inclu
 The optimization function is defined by "function \[l0, theta0, angles, jangles] = optimise(r,R,H,delta)"
 
 Input:</br>
-name &emsp data categary                     explaination </br>
+name &emsp; data categary                     explaination </br>
   r        1\*1 double     the circumradius of the triangle on the platform</br>
   R        1\*1 double     the circumradius of the triangle on the base</br>
   H        1\*1 double     the hight of the support pole</br>
