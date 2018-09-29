@@ -20,7 +20,7 @@ To carry out optimization, some simplifications are necessary. The actual mechan
 4. For the atual mechanism, the rotation range of U-joint is also limited so this is another constraint.(deviation angle must be lower than *alfa0*). But we can change the rotation range by change U-joints. So in the optimization function, instead of regarding the rotation range another constraint, the U-joint rotation range is calculated as an output.</br>
 
 ## Main Function Instruction
-This part introduces how to use the optimization function (neck_optimise), including variable defination, optimization method and some notices. This function has a lot limitations, if you want to edit the code, the next part (Code details) as well as the comments in the function will help you understand the code.</br>
+This part introduces how to use the optimization function (neck_optimise), including variable defination and optimization method . This function has a lot limitations, if you want to edit the code, the next part (Code details) as well as the comments in the function will help you understand the code.</br>
 
 ### Variable Defination
 The optimization function is defined by "function \[l0, theta0, angles, jangles] = optimise(r,R,H,delta)".</br>
@@ -41,27 +41,21 @@ jangles &emsp;1\*1 double &emsp; the angle range of the U-joint required by the 
 
 ### Optimal Method
 #### Optimal goel
-The optimization goels include required angle ranges (workspace goel) and required angular velocities of roll, pitch and yaw (speed goel). The workspace of the mechnism means the size of space the mechanism can achieve. Indeed, if we regard (roll, pitch, yaw) as coordinates for different positions of the mechanism, we can work out the critical surface. (Each point on the surface represents a critical position, in which the mechanism just breaks one of the constraints.). However, the surface is irregular and it is hard to evaluate the workspace with this surface. So I use the maximum angles of roll, pitch and yaw that the mechanism can achieve when the other two angles are 0 (the parameter *angles*) to represent the size of workspace.
+The optimization goels include required angle ranges (workspace goel) and required angular velocities of roll, pitch and yaw (speed goel). The workspace of the mechnism means the size of space the mechanism can achieve. Indeed, if we regard (roll, pitch, yaw) as coordinates for different positions of the mechanism, we can work out the critical surface. (Each point on the surface represents a critical position, in which the mechanism just breaks one of the constraints.). However, the surface is irregular and it is hard to evaluate the workspace with this surface. So I use the maximum angles of roll, pitch and yaw that the mechanism can achieve when the other two angles are 0 (the parameter *angles*) to represent the size of workspace.</br>
 
 Related defination satements:</br>
 
 angles_req=\[roll+,pitch+,yaw+;roll-,pich-,yaw-]; &emsp;&emsp; defines required angle ranges of roll, pitch and yaw when the other two angles are 0.</br>
 anguvel_req=\[roll_speed,pitch_speed,yaw_speed]; &emsp; defines required angular velocities</br>
 
-Given the size of the mechanism (*r*,*R*,*H*), the optimizaition function will find the best natural place (*theta0*,*l0*) and the best minimum actuator lenth to make the mechanism get as close as possible to these goels.<\br>
+Given the size of the mechanism (*r*,*R*,*H*), the optimizaition function will find the best natural place (*theta0*,*l0*) and the best minimum actuator lenth to make the mechanism get as close as possible to these goels.</br>
 
 #### Optimal constraint
-As mentioned in the previous section, there are two constraints that we need to consider, the stroke length of the actuator and mechanical collision.<\br> 
+As mentioned in the previous section, there are two constraints that we need to consider, the stroke length of the actuator and mechanical collision.</br> 
 
 #### Method
 The optimization process is change the minimum actuator length to change the configuration of the mechanism. As to each configuration, find the best natural place (*theta0_n,l0_n*) and work out performance parameters (*angles_n,vm,jangles*).
 For each configuration, I defined an optimal function (*target_func*) to evaluate how close the workspace size of different configurations is to the optimal goel (*angles_req*).</br>
 To define *target_func*, we first need to define the difference (*d_angles*) btween *angles_n* and *angles_req*: </br>
-$d_angles=\left|\angles_req\right|-\left|\angles_n\right|$ </br>
-If the ranges of roll, pitch and yaw corresponding to *angles* are in the ranges corresponding to *angles_req*
-### Notices
-
-## Code details
-
-
-
+$d_angles=\left|angles_req\right|-\left|angles_n\right|$ </br>
+If the ranges of roll, pitch and yaw corresponding to *angles* are in the ranges corresponding to *angles_req*, the difference of that part is 0; if not, the difference of that part is the absolute value of that part.
