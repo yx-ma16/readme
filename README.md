@@ -57,5 +57,14 @@ As mentioned in the previous section, there are two constraints that we need to 
 The optimization process is change the minimum actuator length to change the configuration of the mechanism. As to each configuration, find the best natural place (*theta0_n,l0_n*) and work out performance parameters (*angles_n,vm,jangles*).
 For each configuration, I defined an optimal function (*target_func*) to evaluate how close the workspace size of different configurations is to the optimal goel (*angles_req*).</br>
 To define *target_func*, we first need to define the difference (*d_angles*) btween *angles_n* and *angles_req*: </br>
-$d_angles=\left|angles_req\right|-\left|angles_n\right|$ </br>
-If the ranges of roll, pitch and yaw corresponding to *angles* are in the ranges corresponding to *angles_req*, the difference of that part is 0; if not, the difference of that part is the absolute value of that part.
+$d_angles=\left|angles_req\right|-\left|angles_n\right|$ </br>       d_angles is 2\*3 double
+If the ranges of roll, pitch and yaw corresponding to *angles* are in the ranges corresponding to *angles_req*, the difference of that part is 0; if not, the difference of that part is the absolute value of that part. </br>
+Then the *target_func* is defined as the sum of all elements in d_angles.</br>
+</br>
+The optimization function (*optimise*) first generates a sery of configurations with a fixed step size and then it traverses all the configurations to find a best configuration which has the minimum value of *target_func*. During the traversal, the optimization function also works out the required actuator speed and the maximum deviation angles of U-joints. 
+
+## Code Details
+
+This part only explains the function named "*required_speed*", because the other codes are easy to understand with the comments in these codes.
+
+**** unfinished
