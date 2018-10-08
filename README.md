@@ -65,6 +65,8 @@ The optimization function (*optimise*) first generates a sery of configurations 
 
 ## Code Details
 
-This part only explains the function named "*required_speed*", because the other codes are easy to understand with the comments in these codes.
+This part only explains the function named "*required_speed*", because the other codes are easy to understand with the comments in these codes.</br>
 
-**** unfinished
+*required_speed* calculates the required speed for the actuator to achieve the required angular speed of the mechanism over the whole workspace. The idea is tranversing all possible positions in the workspace with a fixed step-length (1 degree in the function, you can take a smaller step-length, but remember running time will be longer) and then computing the differences of the lengths of three actuators between two neighbouring positions. "Two neighbouring positions" means that the coordinates (roll,pitch,yaw) of one position is only different from those of the other position in one angle among roll, pitch and yaw for one step-length, while the other two angles are the same. Since the required anguler velocity (*anguvel_req*) are known, the time between two neighbouring positions can be worked out and we can further compute the velocities of three actuators btween two positions. Finally we take the maximam velocity of three actuators as the required speed.</br>
+
+This function can be put after the process of optimization because it has .
