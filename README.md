@@ -27,16 +27,16 @@ The optimization function is defined by "function \[l0, theta0, angles, jangles]
 
 Input:</br>
 name &emsp; data categary  &emsp;&emsp;&emsp;&emsp; explaination </br>
-&emsp;r&ensp;&emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the platform</br>
+&emsp;r&ensp; &emsp;&emsp;1\*1 double &emsp; the circumradius of the triangle on the platform</br>
 &emsp;R &emsp;&emsp; 1\*1 double &emsp; the circumradius of the triangle on the base</br>
 &emsp;H &emsp;&emsp; 1\*1 double &emsp; the hight of the support pole</br>
-&ensp;delta &emsp; 1\*1 double &emsp; the critical value of collision</br>
+&ensp;delta&ensp;&emsp; 1\*1 double &emsp; the critical value of collision</br>
 Output:</br>
 &emsp;l0 &emsp;&emsp; 1\*1 double &emsp; the natural length of the acuator </br>
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"natural" means the mechanism is at its natural position (pitch, roll are both 0 and yaw is theta0)</br>
 theta0 &emsp; 1\*1 double &emsp; the natural angle of yaw </br>
 angles &emsp; 2\*3 double &emsp; the rotation range of roll,pitch,yaw when the other two angles are both 0 (the rotation order is roll,pitch,yaw)</br>
-anguvel &emsp;2\*3 double &emsp; the max angular speed of roll,pitch,yaw</br>
+anguvel&emsp;2\*3 double &emsp; the max angular speed of roll,pitch,yaw</br>
 jangles &emsp;1\*1 double &emsp; the angle range of the U-joint required by the workspace</br>
 
 ### Optimal Method
@@ -56,8 +56,11 @@ As mentioned in the previous section, there are two constraints that we need to 
 #### Method
 The optimization process is change the minimum actuator length to change the configuration of the mechanism. As to each configuration, find the best natural place (*theta0_n,l0_n*) and work out performance parameters (*angles_n,vm,jangles*).
 For each configuration, I defined an optimal function (*target_func*) to evaluate how close the workspace size of different configurations is to the optimal goel (*angles_req*).</br>
+
 To define *target_func*, we first need to define the difference (*d_angles*) btween *angles_n* and *angles_req*: </br>
-$d_angles=\left|angles_req\right|-\left|angles_n\right|$ </br>       d_angles is 2\*3 double
+
+$d\_angles=\left|angles\_req\right|-\left|angles\_n\right|$ </br>       
+d\_angles is 2\*3 double
 If the ranges of roll, pitch and yaw corresponding to *angles* are in the ranges corresponding to *angles_req*, the difference of that part is 0; if not, the difference of that part is the absolute value of that part. </br>
 Then the *target_func* is defined as the sum of all elements in d_angles.</br>
 </br>
